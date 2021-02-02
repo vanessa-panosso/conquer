@@ -1,0 +1,69 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.liquibase.gradle' version '2.0.4'
+	id 'java'
+}
+
+group = 'br.com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	liquibase
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtime 'mysql:mysql-connector-java'
+	liquibaseRuntime 'mysql:mysql-connector-java'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+    runtimeOnly('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+    implementation('org.liquibase:liquibase-core:4.0.0')
+    implementation('org.liquibase.ext:liquibase-hibernate5:3.6')
+	liquibaseRuntime('org.liquibase.ext:liquibase-hibernate5:3.6')
+	liquibaseRuntime('org.liquibase:liquibase-core:4.0.0')
+	liquibaseRuntime('org.springframework.boot:spring-boot-starter-data-jpa')
+	liquibaseRuntime files('src/main')
+	liquibaseRuntime sourceSets.main.output
+}
+
+diff.dependsOn compileJava
+diffChangeLog.dependsOn compileJava
+generateChangelog.dependsOn compileJava
+
+liquibase {
+  activities {
+    main {
+      changeLogFile 'classpath:/db/changelog/db.changelog-master.xml'
+      url 'jdbc:mysql://localhost:3306/conquer'
+      referenceUsername 'root'
+      referencePassword 'vanessa'
+      referenceUrl 'hibernate:spring:br.com.conquer.domain?dialect=org.hibernate.dialect.MySQL5Dialect'
+      referenceDriver 'liquibase.ext.hibernate.database.connection.HibernateDriver'
+      outputFile 'classpath:/db/changelog/d-changelog-master.xml'     
+      driver 'com.mysql.cj.jdbc.Driver'
+      classpath 'mysql-connector-java-8.0.22.jar'
+    }
+  }
+  runList = 'main'
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,159 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<changeSet author="Vanessa Panosso" id="01">
+		<createTable tableName="portador">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="nome" type="varchar"/>
+			<column name="codigoFormatacao" type="varchar"/>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="02">
+		<createTable tableName="uf">
+			<column name="nome" type="varchar"/>
+			<column name="sigla" type="varchar">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="03">
+		<createTable tableName="municipio">				
+			<column name="codigo_ibge" type="varchar">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="nome_ibge" type="varchar"/>
+			<column name="pais" type="varchar"/>
+			<column name="uf_id" type="varchar">
+				<constraints foreignKeyName="municipio_uf_id" nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="04">
+		<createTable tableName="cnae">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="classe" type="varchar"/>
+			<column name="codigo_classse" type="varchar"/>
+			<column name="codigo_divisao" type="varchar"/>
+			<column name="codigo_grupo" type="varchar"/>
+			<column name="codigo_secao" type="varchar"/>
+			<column name="codigo_subclasse" type="varchar"/>
+			<column name="divisao" type="varchar"/>
+			<column name="grupo" type="varchar"/>
+			<column name="secao" type="varchar"/>
+			<column name="subclasse" type="varchar"/>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="05">
+		<createTable tableName="natureza_juridica">
+			<column name="codigo" type="varchar">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="codigo_tipo" type="varchar"/>
+			<column name="descricao" type="varchar"/>
+			<column name="descricao_tipo" type="varchar"/>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="06">
+		<createTable tableName="estabelecimento">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="codigo_formatado" type="varchar"/>
+			<column name="complemento_endereco" type="varchar"/>
+			<column name="data_abertura" type="varchar"/>
+			<column name="descricao_logradouro" type="varchar"/>
+			<column name="endereco_eletronico" type="varchar"/>
+			<column name="localidade_pessoa" type="varchar"/>
+			<column name="nome" type="varchar"/>
+			<column name="nome_bairro" type="varchar"/>
+			<column name="nome_fantasia_receita" type="varchar"/>
+			<column name="numero_cep" type="varchar"/>
+			<column name="numero_endereco" type="varchar"/>
+			<column name="numero_telefone" type="varchar"/>
+			<column name="razaoSocial_receita" type="varchar"/>
+			<column name="tipo_codigo" type="varchar"/>
+			<column name="tipo_pessoa" type="varchar"/>
+			<column name="municipio_id" type="varchar">
+				<constraints foreignKeyName="estabelecimento_municipio_id" nullable="false" />
+			</column>
+			<column name="cnae_id" type="varchar">
+				<constraints foreignKeyName="estabelecimento_cnae_id" nullable="false" />
+			</column>
+			<column name="natureza_juridica_id" type="varchar">
+				<constraints foreignKeyName="estabelecimento_natureza_juridica_id" nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="07">
+		<createTable tableName="orgao_maximo">
+			<column name="codigo" type="varchar">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="nome" type="varchar"/>
+			<column name="silga" type="varchar"/>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="08">
+		<createTable tableName="orgao_vinculado">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cnpj" type="varchar"/>
+			<column name="codigo_siafi" type="varchar"/>
+			<column name="descricao_poder" type="varchar"/>
+			<column name="nome" type="varchar"/>
+			<column name="sigla" type="varchar"/>
+			<column name="orgao_maximo_id">
+				<constraints foreignKeyName="orgacao_vinculado_orgao_maximo_id" nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="09">
+		<createTable tableName="unidade_gestora">
+			<column name="codigo" type="varchar">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="nome" type="varchar"/>
+			<column name="orgao_vinculado_id" type="varchar">
+				<constraints foreignKeyName="unidade_gestora_orvgao_vinculado_id"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="10">
+		<createTable tableName="tipo_cartao">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="codigo" type="varchar"/>
+			<column name="descricao" type="varchar"/>
+		</createTable>
+	</changeSet>
+	<changeSet author="Vanessa Panosso" id="10">
+		<createTable tableName="despesa">
+			<column name="id" type="int4">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="data_transacao" type="varchar"/>
+			<column name="mes_extrato" type="varchar"/>
+			<column name="valor_transacao" type="numeric(10,2)"/>
+			<column name="estabelecimento_id" type="int4">
+				<constraints foreignKeyName="despesa_estabelecimento_id"/>
+			</column>
+			<column name="tipo_cartao_id" type="int4">
+				<constraints foreignKeyName="despesa_tipo_cartao_id"/>
+			</column>
+			<column name="unidade_gestora_id" type="varchar">
+				<constraints foreignKeyName="unidade_gestora_id"/>
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>
