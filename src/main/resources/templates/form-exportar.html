@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application - Bootstrap Input Mask</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Exportar
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/despesas">Gastos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10 mt-5">
+            <form method="post" th:action="@{/despesas/exportar}" th:object="${filtroExportar}">
+                <div class="form-group row">
+                    <label for="dataInicial" class="col-sm-4 col-form-label">Data Inicial</label>
+                    <div class="col-sm-8">
+                        <input type="date" th:type="date" class="form-control" th:id="dataInicial"
+                            th:name="dataInicial" th:value="${#dates.format(dataInicial, dateFormat)}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="dataFinal" class="col-sm-4 col-form-label">Data Final</label>
+                    <div class="col-sm-8">
+                        <input type="date" th:type="date" class="form-control" th:id="dataFinal"
+                        th:name="dataFinal" th:value="${#dates.format(dataFinal, dateFormat)}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="todasPaginas" class="col-sm-4 col-form-label">Exportar todas as paginas</label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" th:field="*{todasPaginas}" th:value="${todasPaginas}" />
+                    </div>
+                    <h6>A consulta de gastos no Porta de transparência é pagina de 15 em 15, ao marcar esse campo será exportado todas as páginas e isso pode  levar alguns minutos. Senão marcar será exportado apenas a primeira pagina</h6>
+                </div>
+                <button class="btn btn-primary" type="submit">Exportar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

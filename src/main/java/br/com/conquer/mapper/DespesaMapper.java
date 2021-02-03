@@ -2,10 +2,16 @@ package br.com.conquer.mapper;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -64,13 +70,17 @@ public abstract class DespesaMapper {
 		return LocalDate.parse(strData, dtf);
 	}
 
-	public String from(LocalDate localDateTime) {
+	public String from(LocalDate localDate) {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		return df.format(localDateTime);
+		final Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+		return df.format(date);
 	}
 
-	public BigDecimal fromBigdecimal(String valor) {
-		return new BigDecimal(valor.replaceAll(",", ""));
+	public BigDecimal fromBigdecimal(String valor) throws ParseException {
+		DecimalFormat df = new DecimalFormat(
+			      "#,##0.00", 
+			      new DecimalFormatSymbols(new Locale("pt", "BR")));
+		return new BigDecimal(df.parse(valor).doubleValue());
 	}
 
 	public String fromString(BigDecimal valor) {
