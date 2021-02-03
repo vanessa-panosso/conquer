@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 
 import br.com.conquer.domain.Despesa;
 
-@SpringBootApplication(exclude={HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
 @EntityScan(basePackageClasses = Despesa.class)
 public class ConquerApplication {
 

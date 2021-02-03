@@ -1,5 +1,6 @@
 package br.com.conquer.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,14 +20,13 @@ import lombok.Setter;
 public class OrgaoVinculado {
 
 	@Id
-	private Integer id;
 	private String cnpj;
 	private String codigoSiafi;
 	private String descricaoPoder;
 	private String nome;
 	private String sigla;
 	
-	@ManyToOne
-	@JoinColumn(columnDefinition = "orgao_maximo_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orgao_maximo_id")
 	private OrgaoMaximo orgaoMaximo;
 }

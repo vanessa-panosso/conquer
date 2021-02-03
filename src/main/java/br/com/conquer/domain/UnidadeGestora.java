@@ -1,5 +1,6 @@
 package br.com.conquer.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ public class UnidadeGestora {
 	private String codigo;
 	private String nome;
 	
-	@ManyToOne
-	@JoinColumn(columnDefinition = "orgao_vinculado_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orgao_vinculado_id")
 	private OrgaoVinculado orgaoVinculado;
 }

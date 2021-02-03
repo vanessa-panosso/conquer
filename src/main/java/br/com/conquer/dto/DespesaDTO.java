@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class DespedaDTO {
+public class DespesaDTO {
 	private Integer id;
 	private EstabelecimentoDTO estabelecimento;
 	private String dataTransacao;

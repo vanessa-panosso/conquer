@@ -1,5 +1,6 @@
 package br.com.conquer.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -35,15 +36,15 @@ public class Estabelecimento {
 	private String tipoCodigo;
 	private String tipoPessoa;
 	
-	@ManyToOne
-	@JoinColumn(columnDefinition = "natureza_juridica_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "natureza_juridica_id")
 	private NaturezaJuridica naturezaJuridica;
 	
-	@ManyToOne
-	@JoinColumn(columnDefinition = "municipio_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "municipio_id")
 	private Municipio municipio;
 	
-	@ManyToOne
-	@JoinColumn(columnDefinition = "cnae_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cnae_id")
 	private Cnae cnae;
 }
